@@ -1,0 +1,9 @@
+snaps/
+target/
+logs/
+reports/
+.DS_Store
+*.iml
+.idea
+drivers
+description.pdf
