@@ -7,7 +7,7 @@ public class ContainerDTest {
 
     static class ContainerDATest {
         @Test
-        @DisplayName("Nice name D-A-A")
+        @DisplayName("Node D-A-A")
         void nodeDAA() {
             System.out.println("Passing node D-A-A");
         }
@@ -15,14 +15,14 @@ public class ContainerDTest {
 
     static class ContainerDBTest {
         @Test
-        @DisplayName("Nice name D-A-B")
+        @DisplayName("Node D-A-B")
         void nodeDAB() {
             System.out.println("Passing node D-A-B");
         }
     }
 
     @Test
-    @DisplayName("Nice name D-C")
+    @DisplayName("Node D-C")
     void nodeDC() {
         System.out.println("Passing node D-C");
     }

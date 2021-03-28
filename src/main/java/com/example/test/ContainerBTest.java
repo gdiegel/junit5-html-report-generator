@@ -11,7 +11,7 @@ public class ContainerBTest {
     }
 
     @Test
-    @DisplayName("Nice name B-B")
+    @DisplayName("Node B-B")
     void nodeBB() {
         System.out.println("Failing node B-A");
         throw new RuntimeException("Boom!");

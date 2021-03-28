@@ -1,6 +1,5 @@
 package com.example;
 
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
@@ -17,8 +16,7 @@ public class Runner {
         final LauncherDiscoveryRequestBuilder builder = LauncherDiscoveryRequestBuilder.request();
         builder.selectors(selectPackage("com.example.test"));
         final SummaryGeneratingListener summaryGeneratingListener = new SummaryGeneratingListener();
-        ExtentSparkReporter spark = new ExtentSparkReporter("Spark.html");
-        final ExtentReportGeneratingListener extentReportGeneratingListener = new ExtentReportGeneratingListener(spark);
+        final ExtentReportGeneratingListener extentReportGeneratingListener = new ExtentReportGeneratingListener();
         LauncherFactory.create().execute(builder.build(), summaryGeneratingListener, extentReportGeneratingListener);
         final List<TestExecutionSummary.Failure> failures = summaryGeneratingListener.getSummary().getFailures();
         System.out.printf("Finished test suite with [%s] failures%n", failures.size());

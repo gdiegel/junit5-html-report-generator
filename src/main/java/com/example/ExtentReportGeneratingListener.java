@@ -11,17 +11,12 @@ import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.TestPlan;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 class ExtentReportGeneratingListener implements TestExecutionListener {
 
-    private final ExtentSparkReporter reporter;
+    private final ExtentSparkReporter reporter = new ExtentSparkReporter("report.html");
     private final ExtentReports extentReport = new ExtentReports();
-
-    public ExtentReportGeneratingListener(ExtentSparkReporter reporter) {
-        this.reporter = reporter;
-    }
 
     @Override
     public void testPlanExecutionStarted(TestPlan testPlan) {
@@ -35,6 +30,7 @@ class ExtentReportGeneratingListener implements TestExecutionListener {
 
     @Override
     public void dynamicTestRegistered(TestIdentifier testIdentifier) {
+        System.out.printf("Registered test [%s]%n", testIdentifier.getDisplayName());
     }
 
     @Override
@@ -74,7 +70,7 @@ class ExtentReportGeneratingListener implements TestExecutionListener {
     }
 
     private String determineParentClass(TestIdentifier testIdentifier) {
-        final Optional<String> parent = testIdentifier.getParentId();
+        final var parent = testIdentifier.getParentId();
         String parentClass = "";
         if (parent.isPresent()) {
             parentClass = UniqueId.parse(parent.get())

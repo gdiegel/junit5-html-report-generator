@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class ContainerCTest {
 
     @Test
-    @DisplayName("Nice name C-A")
+    @DisplayName("Node C-A")
     void nodeCA() {
         System.out.println("Passing node C-A");
     }
