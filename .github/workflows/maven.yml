@@ -19,3 +19,8 @@ jobs:
       run: mvn -B clean package
     - name: Execute artifact
       run: java -jar ./target/app.jar
+    - run: mkdir report && cp report.html report
+    - uses: actions/upload-artifact@v2
+    with:
+      name: Report
+      path: report
