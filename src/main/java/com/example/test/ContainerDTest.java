@@ -22,7 +22,6 @@ public class ContainerDTest {
     }
 
     @Test
-    @DisplayName("Node D-C")
     void nodeDC() {
         System.out.println("Passing node D-C");
     }

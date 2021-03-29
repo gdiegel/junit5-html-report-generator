@@ -2,7 +2,6 @@ package com.example;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.junit.platform.commons.PreconditionViolationException;
 import org.junit.platform.engine.TestExecutionResult;
@@ -14,6 +13,9 @@ import org.junit.platform.launcher.TestPlan;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.aventstack.extentreports.Status.INFO;
+import static com.aventstack.extentreports.Status.WARNING;
 
 class ExtentReportGeneratingListener implements TestExecutionListener {
 
@@ -40,31 +42,35 @@ class ExtentReportGeneratingListener implements TestExecutionListener {
                 System.out.printf("Marking klass [%s] as skipped%n", klass.getDisplayName());
             } else if (RESULTS.containsKey(klass)) {
                 final ExtentTest testKlass = extentReport.createTest(getKlassName(klass.getUniqueId()));
-                testPlan.getDescendants(klass).forEach(test -> processTestNode(testKlass, klass, test));
+                testPlan.getDescendants(klass).forEach(test -> processTestNode(testKlass, test));
             }
         });
         extentReport.flush();
     }
 
-    private void processTestNode(ExtentTest testKlass, TestIdentifier klass, TestIdentifier test) {
-        System.out.printf("Processing klass [%s], test [%s]%n", klass.getDisplayName(), test.getDisplayName());
+    private void processTestNode(ExtentTest testKlass, TestIdentifier test) {
+        final ExtentTest node = testKlass.createNode(test.getDisplayName());
         if (SKIPPED.containsKey(test)) {
-            testKlass.createNode(test.getDisplayName()).skip(SKIPPED.get(test));
+            node.skip(SKIPPED.get(test));
             System.out.printf("Marking test [%s] as skipped%n", test.getDisplayName());
             return;
         }
         final TestExecutionResult testResult = RESULTS.get(test);
+        if (testResult == null) {
+            node.log(INFO, "No test results found");
+            return;
+        }
         switch (testResult.getStatus()) {
             case SUCCESSFUL: {
-                testKlass.createNode(test.getDisplayName()).pass(testResult.toString());
+                node.pass(testResult.toString());
                 break;
             }
             case ABORTED: {
-                testKlass.createNode(test.getDisplayName()).log(Status.WARNING, testResult.toString());
+                node.log(WARNING, testResult.toString());
                 break;
             }
             case FAILED: {
-                testKlass.createNode(test.getDisplayName()).fail(testResult.toString());
+                node.fail(testResult.toString());
                 break;
             }
             default:
