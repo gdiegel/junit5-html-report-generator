@@ -7,7 +7,6 @@ import org.junit.platform.launcher.listeners.TestExecutionSummary;
 
 import java.util.List;
 
-import static java.lang.System.exit;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 
 public class Runner {
@@ -21,6 +20,5 @@ public class Runner {
         final List<TestExecutionSummary.Failure> failures = summaryGeneratingListener.getSummary().getFailures();
         System.out.printf("Finished test suite with [%s] failures%n", failures.size());
         failures.forEach(failure -> System.out.printf("%s: %s%n", failure.getTestIdentifier().getDisplayName(), failure.getException()));
-        exit(failures.size() == 0 ? 0 : 1);
     }
 }
