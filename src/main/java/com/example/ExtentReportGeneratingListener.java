@@ -61,20 +61,10 @@ class ExtentReportGeneratingListener implements TestExecutionListener {
             return;
         }
         switch (testResult.getStatus()) {
-            case SUCCESSFUL: {
-                node.pass(testResult.toString());
-                break;
-            }
-            case ABORTED: {
-                node.log(WARNING, testResult.toString());
-                break;
-            }
-            case FAILED: {
-                node.fail(testResult.toString());
-                break;
-            }
-            default:
-                throw new PreconditionViolationException("Unsupported execution status:" + testResult.getStatus());
+            case SUCCESSFUL -> node.pass(testResult.toString());
+            case ABORTED -> node.log(WARNING, testResult.toString());
+            case FAILED -> node.fail(testResult.toString());
+            default -> throw new PreconditionViolationException("Unsupported execution status:" + testResult.getStatus());
         }
     }
 
