@@ -1,4 +1,4 @@
-package com.example;
+package io.github.gdiegel.junit5_html_report_generator;
 
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
@@ -9,11 +9,11 @@ import java.util.List;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 
-public class Runner {
+class Runner {
 
     public static void main(String[] args) {
         final LauncherDiscoveryRequestBuilder builder = LauncherDiscoveryRequestBuilder.request();
-        builder.selectors(selectPackage("com.example.test"));
+        builder.selectors(selectPackage("io.github.gdiegel.junit5_html_report_generator.acceptance"));
         final SummaryGeneratingListener summaryGeneratingListener = new SummaryGeneratingListener();
         final ExtentReportGeneratingListener extentReportGeneratingListener = new ExtentReportGeneratingListener();
         LauncherFactory.create().execute(builder.build(), summaryGeneratingListener, extentReportGeneratingListener);

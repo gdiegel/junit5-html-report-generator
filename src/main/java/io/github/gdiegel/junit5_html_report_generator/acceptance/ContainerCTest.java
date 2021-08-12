@@ -1,4 +1,4 @@
-package com.example.test;
+package io.github.gdiegel.junit5_html_report_generator.acceptance;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;

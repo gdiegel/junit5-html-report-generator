@@ -1,4 +1,4 @@
-package com.example;
+package io.github.gdiegel.junit5_html_report_generator;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import static com.aventstack.extentreports.Status.INFO;
 import static com.aventstack.extentreports.Status.WARNING;
 
-class ExtentReportGeneratingListener implements TestExecutionListener {
+public class ExtentReportGeneratingListener implements TestExecutionListener {
 
     private final ExtentSparkReporter reporter = new ExtentSparkReporter("report.html");
     private final ExtentReports extentReport = new ExtentReports();
